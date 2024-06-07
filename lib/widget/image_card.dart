@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:share_card_open/domain/models/apimodels.dart';
 
-class ImageCard extends StatefulWidget {
+class ImageCard extends StatelessWidget {
   final ImageData data;
   final Function(BuildContext, ImageData) onShare;
 
   const ImageCard({required this.data, required this.onShare});
 
-  @override
-  State<ImageCard> createState() => _ImageCardState();
-}
-
-class _ImageCardState extends State<ImageCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -21,21 +16,21 @@ class _ImageCardState extends State<ImageCard> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
-              child: Image.network(widget.data.imageUrl),
+              child: Image.network(data.imageUrl),
             ),
             SizedBox(height: 8.0),
-            Text(widget.data.title, style: TextStyle(fontSize: 18.0)),
+            Text(data.title, style: TextStyle(fontSize: 18.0)),
             SizedBox(height: 8.0),
-            Text('Date: ${widget.data.date}'),
+            Text('Date: ${data.date}'),
             SizedBox(height: 8.0),
-            Text('Time: ${widget.data.time}'),
+            Text('Time: ${data.time}'),
             SizedBox(height: 8.0),
             Row(
               children: [
                 Spacer(),
                 IconButton(
                   icon: Icon(Icons.share),
-                  onPressed: () => widget.onShare(context, widget.data),
+                  onPressed: () => onShare(context, data),
                 ),
               ],
             ),

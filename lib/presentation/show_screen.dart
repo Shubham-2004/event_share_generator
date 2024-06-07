@@ -15,7 +15,7 @@ class _ShowCardScreenState extends State<ShowCardScreen> {
 
   Future<ImageData> _fetchData() => _apiService.fetchData();
 
-  void _onShare(BuildContext context, ImageData data) async {
+  void _onShare(BuildContext context, ImageData data) {
     final message = '''
       ${data.title}
 

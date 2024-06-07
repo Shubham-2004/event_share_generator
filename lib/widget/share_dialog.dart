@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 import 'package:share_card_open/domain/models/apimodels.dart';
 
 class ShareDialog extends StatefulWidget {
@@ -15,7 +16,6 @@ class _ShareDialogState extends State<ShareDialog> {
   String? _backgroundImage = 'assets/download.jpeg'; // Initial image
   Color? _backgroundColor;
   LinearGradient? _backgroundGradient;
-  double _rotationAngle = 0.0; // Initial rotation angle
 
   @override
   Widget build(BuildContext context) {
@@ -23,25 +23,23 @@ class _ShareDialogState extends State<ShareDialog> {
       backgroundColor: Colors.black, // Background color for the outer area
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Container(
-          height: 600.0,
-          width: 400.0,
-          decoration: BoxDecoration(
-            color: _backgroundColor,
-            gradient: _backgroundGradient,
-            image: _backgroundImage != null
-                ? DecorationImage(
-                    image: AssetImage(_backgroundImage!),
-                    fit: BoxFit.cover,
-                  )
-                : null,
-          ),
-          child: Column(
-            children: [
-              AnimatedRotation(
-                turns: _rotationAngle,
-                duration: Duration(milliseconds: 10),
-                child: Container(
+        child: SingleChildScrollView(
+          child: Container(
+            height: 600.0,
+            width: 400.0,
+            decoration: BoxDecoration(
+              color: _backgroundColor,
+              gradient: _backgroundGradient,
+              image: _backgroundImage != null
+                  ? DecorationImage(
+                      image: AssetImage(_backgroundImage!),
+                      fit: BoxFit.cover,
+                    )
+                  : null,
+            ),
+            child: Column(
+              children: [
+                Container(
                   height: 500.0, // Height for the dialog content
                   child: Dialog(
                     backgroundColor: Colors.white,
@@ -89,110 +87,116 @@ class _ShareDialogState extends State<ShareDialog> {
                     ),
                   ),
                 ),
-              ),
-              // Row for selectable colors
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _backgroundImage = null;
-                          _backgroundColor = Colors.blue[300];
-                          _backgroundGradient = null;
-                          _rotationAngle = 0.0; // No rotation for color
-                        });
-                      },
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 4.0),
-                        width: 35.0,
-                        height: 35.0,
-                        decoration: BoxDecoration(
-                          color: Colors.blue[300],
-                          shape: BoxShape.circle,
-                          border: _backgroundColor == Colors.blue[300]
-                              ? Border.all(
-                                  color: const Color.fromRGBO(0, 0, 0, 1),
-                                  width: 1.5,
-                                )
-                              : null,
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _backgroundImage = null;
-                          _backgroundColor = null;
-                          _backgroundGradient = LinearGradient(
-                            colors: [
-                              Colors.blue[900]!,
-                              Colors.blue[300]!
-                            ], // Dark blue to light blue
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          );
-                          _rotationAngle = 0.0; // No rotation for gradient
-                        });
-                      },
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 4.0),
-                        width: 35.0,
-                        height: 35.0,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.blue[900]!,
-                              Colors.blue[300]!
-                            ], // Dark blue to light blue
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
+                // Row for selectable colors
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _backgroundImage = null;
+                            _backgroundColor = Colors.blue[300];
+                            _backgroundGradient = null;
+                          });
+                        },
+                        child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 4.0),
+                          width: 35.0,
+                          height: 35.0,
+                          decoration: BoxDecoration(
+                            color: Colors.blue[300],
+                            shape: BoxShape.circle,
+                            border: _backgroundColor == Colors.blue[300]
+                                ? Border.all(
+                                    color: const Color.fromRGBO(0, 0, 0, 1),
+                                    width: 1.5,
+                                  )
+                                : null,
                           ),
-                          shape: BoxShape.circle,
-                          border: _backgroundGradient != null
-                              ? Border.all(
-                                  color: const Color.fromRGBO(0, 0, 0, 1),
-                                  width: 1.5,
-                                )
-                              : null,
                         ),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _backgroundImage = 'assets/OIP (1).jpeg';
-                          _backgroundColor = null;
-                          _backgroundGradient = null;
-                          _rotationAngle -= 1 / 32;
-                        });
-                      },
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 4.0),
-                        width: 35.0,
-                        height: 35.0,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/OIP (1).jpeg'),
-                            fit: BoxFit.cover,
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _backgroundImage = null;
+                            _backgroundColor = null;
+                            _backgroundGradient = LinearGradient(
+                              colors: [
+                                Colors.blue[900]!,
+                                Colors.blue[300]!
+                              ], // Dark blue to light blue
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            );
+                          });
+                        },
+                        child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 4.0),
+                          width: 35.0,
+                          height: 35.0,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.blue[900]!,
+                                Colors.blue[300]!
+                              ], // Dark blue to light blue
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            shape: BoxShape.circle,
+                            border: _backgroundGradient != null
+                                ? Border.all(
+                                    color: const Color.fromRGBO(0, 0, 0, 1),
+                                    width: 1.5,
+                                  )
+                                : null,
                           ),
-                          shape: BoxShape.circle,
-                          border: _backgroundImage == 'assets/OIP (1).jpeg'
-                              ? Border.all(
-                                  color: const Color.fromRGBO(0, 0, 0, 1),
-                                  width: 1.5,
-                                )
-                              : null,
                         ),
                       ),
-                    ),
-                  ],
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _backgroundImage = 'assets/OIP (1).jpeg';
+                            _backgroundColor = null;
+                            _backgroundGradient = null;
+                          });
+                        },
+                        child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 4.0),
+                          width: 35.0,
+                          height: 35.0,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage('assets/OIP (1).jpeg'),
+                              fit: BoxFit.cover,
+                            ),
+                            shape: BoxShape.circle,
+                            border: _backgroundImage == 'assets/OIP (1).jpeg'
+                                ? Border.all(
+                                    color: const Color.fromRGBO(0, 0, 0, 1),
+                                    width: 1.5,
+                                  )
+                                : null,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              // Row for sharing options
-            ],
+                // Row for sharing options
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Share.share(widget.message);
+                    },
+                    child: Text('Share'),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
