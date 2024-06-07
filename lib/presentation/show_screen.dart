@@ -26,6 +26,7 @@ class _ShowCardScreenState extends State<ShowCardScreen> {
       #Flutter #Image #Share
     ''';
 
+    // Show the ShareDialog
     showDialog(
       context: context,
       builder: (BuildContext context) {
