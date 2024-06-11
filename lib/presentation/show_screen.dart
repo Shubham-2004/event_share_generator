@@ -30,7 +30,11 @@ class _ShowCardScreenState extends State<ShowCardScreen> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return ShareDialog(data: data, message: message);
+        return ShareDialog(
+          data: data,
+          message: message,
+          imageUrl: data.imageUrl, // Pass the imageUrl to ShareDialog
+        );
       },
     );
   }
